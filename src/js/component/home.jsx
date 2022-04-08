@@ -4,20 +4,28 @@ const Home = () => {
 	const [inputValue, setInputValue] = useState("");
 	const [taskArray, setTaskArray] = useState([]);
 
-	let removeLi = setTaskArray.filter((task) => {
-		return "";
-	});
-
-	let mappedTaskArray = taskArray.map((task) => {
+	let mappedTaskArray = taskArray.map((task, index) => {
 		return (
-			<li className="list-group-item d-flex justify-content-between">
+			<li
+				className="list-group-item d-flex justify-content-between"
+				key={index}>
 				{task}
-				<button type="button" class="btn btn-outline-light">
-					Light
+				<button
+					type="button"
+					className="btn btn-outline-light"
+					onClick={() => removeTask(index)}>
+					<strong>X</strong>
 				</button>
 			</li>
 		);
 	});
+
+	function removeTask(i) {
+		let filteredArray = taskArray.filter((task, index) => {
+			return i != index;
+		});
+		setTaskArray(filteredArray);
+	}
 
 	return (
 		<div className="container">
